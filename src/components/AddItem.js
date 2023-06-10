@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const AddUser = () => {
+const AddItem = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("Male");
+  const [desk, setDesk] = useState("");
+  const [produsen, setProdusen] = useState("Pabrik");
   const navigate = useNavigate();
 
-  const saveUser = async (e) => {
+  const saveItem = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/users", {
+      await axios.post("http://localhost:5000/items", {
         name,
-        email,
-        gender,
+        desk,
+        produsen,
       });
       navigate("/");
     } catch (error) {
@@ -25,7 +25,7 @@ const AddUser = () => {
   return (
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
-        <form onSubmit={saveUser}>
+        <form onSubmit={saveItem}>
           <div className="field">
             <label className="label">Name</label>
             <div className="control">
@@ -39,27 +39,27 @@ const AddUser = () => {
             </div>
           </div>
           <div className="field">
-            <label className="label">Email</label>
+            <label className="label">desk</label>
             <div className="control">
               <input
                 type="text"
                 className="input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
+                value={desk}
+                onChange={(e) => setDesk(e.target.value)}
+                placeholder="desk"
               />
             </div>
           </div>
           <div className="field">
-            <label className="label">Gender</label>
+            <label className="label">produsen</label>
             <div className="control">
               <div className="select is-fullwidth">
                 <select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
+                  value={produsen}
+                  onChange={(e) => setProdusen(e.target.value)}
                 >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
+                  <option value="UMKM">UMKM</option>
+                  <option value="Pabrik">Pabrik</option>
                 </select>
               </div>
             </div>
@@ -75,4 +75,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddItem;

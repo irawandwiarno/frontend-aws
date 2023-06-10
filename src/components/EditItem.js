@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const EditUser = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("Male");
+  const [desk, setDesk] = useState("");
+  const [produsen, setProdusen] = useState("Pabrik");
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -16,10 +16,10 @@ const EditUser = () => {
   const updateUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:5000/users/${id}`, {
+      await axios.patch(`http://localhost:5000/items/${id}`, {
         name,
-        email,
-        gender,
+        desk,
+        produsen,
       });
       navigate("/");
     } catch (error) {
@@ -28,10 +28,10 @@ const EditUser = () => {
   };
 
   const getUserById = async () => {
-    const response = await axios.get(`http://localhost:5000/users/${id}`);
+    const response = await axios.get(`http://localhost:5000/items/${id}`);
     setName(response.data.name);
-    setEmail(response.data.email);
-    setGender(response.data.gender);
+    setDesk(response.data.desk);
+    setProdusen(response.data.produsen);
   };
 
   return (
@@ -51,27 +51,27 @@ const EditUser = () => {
             </div>
           </div>
           <div className="field">
-            <label className="label">Email</label>
+            <label className="label">desk</label>
             <div className="control">
               <input
                 type="text"
                 className="input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
+                value={desk}
+                onChange={(e) => setDesk(e.target.value)}
+                placeholder="desk"
               />
             </div>
           </div>
           <div className="field">
-            <label className="label">Gender</label>
+            <label className="label">produsen</label>
             <div className="control">
               <div className="select is-fullwidth">
                 <select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
+                  value={produsen}
+                  onChange={(e) => setProdusen(e.target.value)}
                 >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
+                  <option value="UMKM">UMKM</option>
+                  <option value="Produsen">Produsen</option>
                 </select>
               </div>
             </div>

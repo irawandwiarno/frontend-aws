@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const UserList = () => {
-  const [users, setUser] = useState([]);
+const ItemList = () => {
+  const [items, setItem] = useState([]);
 
   useEffect(() => {
-    getUsers();
+    getItems();
   }, []);
 
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:5000/users");
-    setUser(response.data);
+  const getItems = async () => {
+    const response = await axios.get("http://localhost:5000/items");
+    setItem(response.data);
   };
 
-  const deleteUser = async (id) => {
+  const deleteItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/users/${id}`);
-      getUsers();
+      await axios.delete(`http://localhost:5000/items/${id}`);
+      getItems();
     } catch (error) {
       console.log(error);
     }
@@ -34,27 +34,27 @@ const UserList = () => {
             <tr>
               <th>No</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Gender</th>
+              <th>Deskripsi</th>
+              <th>Produser</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <tr key={user.id}>
+            {items.map((item, index) => (
+              <tr key={item.id}>
                 <td>{index + 1}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
+                <td>{item.name}</td>
+                <td>{item.desk}</td>
+                <td>{item.produsen}</td>
                 <td>
                   <Link
-                    to={`edit/${user.id}`}
+                    to={`edit/${item.id}`}
                     className="button is-small is-info mr-2"
                   >
                     Edit
                   </Link>
                   <button
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => deleteItem(item.id)}
                     className="button is-small is-danger"
                   >
                     Delete
@@ -69,4 +69,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default ItemList;
